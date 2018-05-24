@@ -1,0 +1,72 @@
+#ifndef _ComputerH_Direct_h_
+#define _ComputerH_Direct_h_
+
+#ifdef AlvaPublic
+#include "Project_Hide.h"
+#endif
+
+typedef struct _COMPUTEH_Direct_Coord_ {
+    float x;
+    float y;
+}ComputeH_Direct_Coord, *pComputeH_Direct_Coord;
+
+typedef struct _ComputeH_Direct_Data_{
+    pComputeH_Direct_Coord mTMCoor0;
+    pComputeH_Direct_Coord mTMCoor1;
+    float* mTMxy;
+    float* mTMH;
+    float* mTMHTra;
+    float mTMHMul[8 * 8];
+    float mTMHxy[8 * 1];
+    int pairNum;
+    int maxPointNum;
+}ComputeH_Direct_Data, *pComputeH_Direct_Data;
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+    /*
+     * AllocComputeHData
+     * 分配一个ComputeH需要用的结构体空间
+     * @param data: out, 分配的结构体
+     * @param maxPointNum: in, 最大点数
+     * @return: 空
+     */
+    void AllocComputeH_Direct_Data(pComputeH_Direct_Data* data, int maxPointNum);
+    
+    /*
+     * FreeComputeHData
+     * 释放一个ComputeH需要用的结构体空间，必须是由AllocComputeHData分配的
+     * @return: 空
+     */
+    void FreeComputeH_Direct_Data(pComputeH_Direct_Data* data);
+
+    /*
+     * setComputeHData
+     * 根据点对信息,生成计算H矩阵所使用的数据
+     * @param feat0: 第一组点对信息,按照x,y,x,y,x,y...顺序排列
+     * @param feat1: 第二组点对信息,按照x,y,x,y,x,y...顺序排列
+     * @param loc: loc不为NULL时,存储feat0,feat1匹配的点的序号,例如, feat0[loc[i] * 2]  feat1[loc[i] * 2]这两个点匹配
+     * @param num: loc不为NULL时,loc中的数量. loc为NULL时,feat0和feat点对的数量
+     * @param pComHData: 根据以上数据生成的,计算H矩阵的数据.在ComputeH函数中使用
+     * @return: 0：正确，0x80019907: 输入点数大于最大可输入点
+     */
+    int setComputeH_Direct_Data(float* feat0, float* feat1, int* loc, int num, pComputeH_Direct_Data pComHData);
+    int setComputeH_Direct_Data_disperse(float* feat0, float* feat1, int* matchLoc, int* consensus, int num, pComputeH_Direct_Data pComHData, int maxNum);
+
+    /*
+     * ComputeH
+     * 根据点对计算H矩阵
+     * @param pComHData: 计算H矩阵使用的数据,由setComputeHData 函数得到该数据
+     * @param H_gauss[]: 计算出的H矩阵
+     * @return: 空
+     */
+    void ComputeH_Direct(pComputeH_Direct_Data pComHData, float H_gauss[]);
+
+#ifdef __cplusplus
+}
+#endif
+
+
+#endif

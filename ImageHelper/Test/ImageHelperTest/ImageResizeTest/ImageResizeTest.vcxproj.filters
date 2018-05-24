@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="头文件\GlobalConfig">
+      <UniqueIdentifier>{777ad368-3852-478a-89c6-b791c2d34f17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\std-multi-platform">
+      <UniqueIdentifier>{324d83c1-7433-4139-aae7-da873e7c888d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\std-multi-platform">
+      <UniqueIdentifier>{4f7e652e-b6db-4165-82fd-8322d5107aa9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\ImageHelper">
+      <UniqueIdentifier>{31e73270-60fb-4df3-8087-d94d396217a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\ImageHelper">
+      <UniqueIdentifier>{ffcb8eb4-5dea-4589-aa7c-2fdfbddbea4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\JniHelper">
+      <UniqueIdentifier>{e0312985-4403-4dc4-bc6d-47141176ec17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\DebugTools">
+      <UniqueIdentifier>{92f47bff-0697-4c38-b5a2-305f201e364f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\DebugTools">
+      <UniqueIdentifier>{d7301017-be69-4890-8190-ef14f9e4cd7c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\GlobalConfig\Config.h">
+      <Filter>头文件\GlobalConfig</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GlobalConfig\Format.h">
+      <Filter>头文件\GlobalConfig</Filter>
+    </ClInclude>
+    <ClInclude Include="..\std-multi-platform\aligned_malloc.h">
+      <Filter>头文件\std-multi-platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\std-multi-platform\memory_fl.h">
+      <Filter>头文件\std-multi-platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\std-multi-platform\stdio_fl.h">
+      <Filter>头文件\std-multi-platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\std-multi-platform\stdlib_fl.h">
+      <Filter>头文件\std-multi-platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\std-multi-platform\string_fl.h">
+      <Filter>头文件\std-multi-platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Core\include\BmpHelper.h">
+      <Filter>头文件\ImageHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Core\include\ImageResize.h">
+      <Filter>头文件\ImageHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\JniHelper\include\AndroidHelper.h">
+      <Filter>头文件\JniHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DebugTools\include\AlvaTimer.h">
+      <Filter>头文件\DebugTools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DebugTools\include\ErrorTools.h">
+      <Filter>头文件\DebugTools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DebugTools\include\Log.h">
+      <Filter>头文件\DebugTools</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\std-multi-platform\aligned_malloc.c">
+      <Filter>源文件\std-multi-platform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Core\src\BmpHelper.c">
+      <Filter>源文件\ImageHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Core\src\ImageResize.c">
+      <Filter>源文件\ImageHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DebugTools\src\AlvaTimer.c">
+      <Filter>源文件\DebugTools</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

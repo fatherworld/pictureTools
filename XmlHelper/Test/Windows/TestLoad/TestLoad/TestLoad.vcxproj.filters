@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\XML">
+      <UniqueIdentifier>{a2e017e7-7130-4623-8397-eff48552acc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DebugTools">
+      <UniqueIdentifier>{5c6ac1d8-11ae-402a-b1ec-2331a99a0388}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ImageHelper">
+      <UniqueIdentifier>{8269ac1d-4fc6-48c1-87d8-eb3dc3d33fb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\JniHelper">
+      <UniqueIdentifier>{2cbc989c-4d4e-4433-ac49-4a05092d2b53}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Core\XML.c">
+      <Filter>Source Files\XML</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Shared\DebugTools\src\AlvaTimer.c">
+      <Filter>Source Files\DebugTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Shared\DebugTools\src\Dump.c">
+      <Filter>Source Files\DebugTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Shared\ImageHelper\src\BmpHelper.c">
+      <Filter>Source Files\ImageHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Shared\JniHelper\src\AndroidHelper.c">
+      <Filter>Source Files\JniHelper</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

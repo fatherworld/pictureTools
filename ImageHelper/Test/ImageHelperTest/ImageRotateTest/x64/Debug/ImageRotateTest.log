@@ -1,0 +1,30 @@
+﻿  AndroidHelper.c
+  Info(No harm): Dump is turned on.
+  Info(No harm): Flow_Track is turned on.
+  Dump.c
+  Info(No harm): Dump is turned on.
+  Info(No harm): Flow_Track is turned on.
+  AlvaTimer.c
+  Info(No harm): Dump is turned on.
+  Info(No harm): Flow_Track is turned on.
+  QuarternionRotationMatrix.c
+  Info(No harm): Dump is turned on.
+  Info(No harm): Flow_Track is turned on.
+  EulerRotationMatrix.c
+  Info(No harm): Dump is turned on.
+  Info(No harm): Flow_Track is turned on.
+  ImageRotate.c
+  Info(No harm): Dump is turned on.
+  Info(No harm): Flow_Track is turned on.
+  ImageConverter.c
+  Info(No harm): Dump is turned on.
+  Info(No harm): Flow_Track is turned on.
+  BmpHelper.c
+  Info(No harm): Dump is turned on.
+  Info(No harm): Flow_Track is turned on.
+  正在生成代码...
+  Main.cpp
+  Info(No harm): Dump is turned on.
+  Info(No harm): Flow_Track is turned on.
+  ImageRotateTest.vcxproj -> E:\ys_alva\tortoise_SVN_WS\AlvaProjectPredefine\trunk\ImageHelper\Test\ImageHelperTest\x64\Debug\ImageRotateTest.exe
+  ImageRotateTest.vcxproj -> E:\ys_alva\tortoise_SVN_WS\AlvaProjectPredefine\trunk\ImageHelper\Test\ImageHelperTest\x64\Debug\ImageRotateTest.pdb (Full PDB)

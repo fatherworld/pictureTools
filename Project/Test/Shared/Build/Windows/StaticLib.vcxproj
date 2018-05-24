@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--此库使用方法
+    在工程的vcxproj文件（xxx.vcxproj）中的<PropertyGroup Label="Globals">前加入以下定义
+    	<PropertyGroup>
+      		<Shared_Module_Path>$(SolutionDir)..\..\Core\Code</Shared_Module_Path>
+    	</PropertyGroup>
+    此处用于定义Shared_Module_Path绝对路径
+
+    在同文件的<PropertyGroup Label="UserMacros" />前加入引用
+  	<Import Project="$(SolutionDir)\..\..\Core\Build\Windows\StaticLib.vcxproj" />
+    此处用于通过绝对路径引用本库
+
+    在同文件的<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">等所有标签中加入
+        <IncludePath>$(IRIncludePath);$(IncludePath)</IncludePath>
+        <LibraryPath>$(Shared64LibPath);$(LibraryPath);</LibraryPath>
+    此处用于配置头文件引用路径
+  -->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <SharedIncludePath>$(AMDAPPSDKROOT)\include;$(INTELOCLSDKROOT)\include;$(Shared_Module_Path)\AngleHelper\include;$(Shared_Module_Path)\AuthChecker;$(Shared_Module_Path)\Consistency\include;$(Shared_Module_Path)\DebugTools\include;$(Shared_Module_Path)\DynamicOCL\include;$(Shared_Module_Path)\Eigen;$(Shared_Module_Path)\Filter\include;$(Shared_Module_Path)\GlobalConfig;$(Shared_Module_Path)\ImageHelper\include;$(Shared_Module_Path)\MultiThread\include;$(Shared_Module_Path)\JniHelper\include;$(Shared_Module_Path)\OclHelper\include;$(Shared_Module_Path)\PoseHelper\Core\include;$(Shared_Module_Path)\PoseHelper\interface;$(Shared_Module_Path)\Prediction\include;$(Shared_Module_Path)\Project\include;$(Shared_Module_Path)\SharedModule\Implements\include;$(Shared_Module_Path)\SharedModule\Implements\interface;$(Shared_Module_Path)\std-multi-platform;$(Shared_Module_Path)\TooN;$(Shared_Module_Path)\DataQueue\Implements\include;$(Shared_Module_Path)\DataQueue\Implements\interface;$(Shared_Module_Path)\XmlHelper;$(Shared_Module_Path)\MatrixCompute\include;$(Shared_Module_Path)\FFTW\include</SharedIncludePath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Shared64LibPath>$(AMDAPPSDKROOT)lib\x86_64;$(INTELOCLSDKROOT)lib\x64;$(Shared_Module_Path)\PoseHelper\Dynamic\Windows\x64;$(Shared_Module_Path)\FFTW\Windows\x64\lib</Shared64LibPath>
+    <Shared32LibPath>$(AMDAPPSDKROOT)lib\x86;$(INTELOCLSDKROOT)lib\x86;$(Shared_Module_Path)\PoseHelper\Dynamic\Windows\x86;$(Shared_Module_Path)\FFTW\Windows\x86\lib</Shared32LibPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="exists('$(Shared_Module_Path)\\PoseHelper\\Core\\src\\ComputePose.cpp')">
+    <PoseHelperLib></PoseHelperLib>
+  </PropertyGroup>
+  <PropertyGroup Condition="!exists('$(Shared_Module_Path)\\PoseHelper\\Core\\src\\ComputePose.cpp') and exists('$(Shared_Module_Path)\\PoseHelper\\Dynamic\\Windows\\x86\\PoseHelper_DoNotUseThisPackageInRelease.lib')">
+    <PoseHelperLib>PoseHelper_DoNotUseThisPackageInRelease.lib</PoseHelperLib>
+  </PropertyGroup>
+  <PropertyGroup Condition="!exists('$(Shared_Module_Path)\\PoseHelper\\Core\\src\\ComputePose.cpp') and !exists('$(Shared_Module_Path)\\PoseHelper\\Dynamic\\Windows\\x86\\PoseHelper_DoNotUseThisPackageInRelease.lib')">
+    <PoseHelperLib></PoseHelperLib>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="exists('$(Shared_Module_Path)\\FFTW\\include\\fftw3.h')">
+    <FFTWLib>libfftw3-3.lib;libfftw3f-3.lib;libfftw3l-3.lib</FFTWLib>
+  </PropertyGroup>
+  <PropertyGroup Condition="!exists('$(Shared_Module_Path)\\FFTW\\include\\fftw3.h')">
+    <FFTWLib></FFTWLib>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AlvaProjectPredefineLibs>$(PoseHelperLib);$(FFTWLib)</AlvaProjectPredefineLibs>
+  </PropertyGroup>
+ 
+  <ItemGroup Condition="exists('$(Shared_Module_Path)\\PoseHelper\\Core\\src\\ComputePose.cpp')">
+    <!--PoseHelper Source Files-->
+    <ClCompile Include="$(Shared_Module_Path)\PoseHelper\Core\src\ComputeH.cpp" />
+    <ClCompile Include="$(Shared_Module_Path)\PoseHelper\Core\src\ComputePose.cpp" />
+  </ItemGroup>
+  <ItemGroup Condition="exists('$(Shared_Module_Path)\\PoseHelper\\interface\\ComputePose.h')">
+    <!--PoseHelper  Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\PoseHelper\interface\ComputePose.h" />
+  </ItemGroup>
+  
+  <ItemGroup Condition="exists('$(Shared_Module_Path)\\AngleHelper\\src\\EulerRotationMatrix.c')">
+    <!--AngleHelper Source Files-->
+    <ClCompile Include="$(Shared_Module_Path)\AngleHelper\src\EulerRotationMatrix.c" />
+    <ClCompile Include="$(Shared_Module_Path)\AngleHelper\src\QuarternionRotationMatrix.c" />
+    <!--AngleHelper Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\AngleHelper\include\EulerRotationMatrix.h" />
+    <ClInclude Include="$(Shared_Module_Path)\AngleHelper\include\QuarternionRotationMatrix.h" />
+  </ItemGroup>
+
+  <ItemGroup Condition="exists('$(Shared_Module_Path)\\Consistency\\src\\Consistency_Rand.c')">
+    <!--Consistency Source Files-->
+    <ClCompile Include="$(Shared_Module_Path)\Consistency\src\Consistency_Rand.c" />
+    <!--Consistency Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\Consistency\include\Consistency_Rand.h" />
+  </ItemGroup>
+    
+  <ItemGroup Condition="exists('$(Shared_Module_Path)\\DataQueue\\Implements\\src\\DataQueue.c')">
+    <!--DataQueue Source Files-->
+    <ClCompile Include="$(Shared_Module_Path)\DataQueue\Implements\src\DataQueue.c" />
+    <!--DataQueue Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\DataQueue\Implements\include\DataQueue.h" />
+    <ClInclude Include="$(Shared_Module_Path)\DataQueue\Implements\interface\DataQueueInterface.h" />
+  </ItemGroup>
+  
+  <ItemGroup Condition="exists('$(Shared_Module_Path)\\DebugTools\\src\\AlvaTimer.c')">
+    <!--DebugTools Source Files-->
+    <ClCompile Include="$(Shared_Module_Path)\DebugTools\src\AlvaTimer.c" />
+    <ClCompile Include="$(Shared_Module_Path)\DebugTools\src\Dump.c" />
+    <!--DebugTools Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\DebugTools\include\AlvaTimer.h" />
+    <ClInclude Include="$(Shared_Module_Path)\DebugTools\include\Dump.h" />
+    <ClInclude Include="$(Shared_Module_Path)\DebugTools\include\ErrorTools.h" />
+    <ClInclude Include="$(Shared_Module_Path)\DebugTools\include\Log.h" />
+  </ItemGroup>
+
+  <ItemGroup Condition="exists('$(Shared_Module_Path)\\DynamicOCL\\src\\Module.c')">
+    <!--DynamicOCL Source Files-->
+    <ClCompile Include="$(Shared_Module_Path)\DynamicOCL\src\Module.c" />
+    <ClCompile Include="$(Shared_Module_Path)\DynamicOCL\src\SafeCL.c" />
+    <ClCompile Include="$(Shared_Module_Path)\DynamicOCL\src\SafeCL_GL.c" />
+    <!--DynamicOCL Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\DynamicOCL\include\Module.h" />
+    <ClInclude Include="$(Shared_Module_Path)\DynamicOCL\include\SafeCL.h" />
+    <ClInclude Include="$(Shared_Module_Path)\DynamicOCL\include\SafeCL_GL.h" />
+  </ItemGroup>
+
+  <ItemGroup Condition="exists('$(Shared_Module_Path)\\Filter\\src\\AlvaFilter.c')">
+    <!--Filter Source Files-->
+    <ClCompile Include="$(Shared_Module_Path)\Filter\src\AlvaFilter.c" />
+    <ClCompile Include="$(Shared_Module_Path)\Filter\src\Damp.c" />
+    <ClCompile Include="$(Shared_Module_Path)\Filter\src\Filter_ConditionDamp.c" />
+    <ClCompile Include="$(Shared_Module_Path)\Filter\src\Filter_Threshold.c" />
+    <ClCompile Include="$(Shared_Module_Path)\Filter\src\Filter_Truncation.c" />
+    <!--Filter Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\Filter\include\AlvaFilter.h" />
+    <ClInclude Include="$(Shared_Module_Path)\Filter\include\Damp.h" />
+    <ClInclude Include="$(Shared_Module_Path)\Filter\include\Filter_ConditionDamp.h" />
+    <ClInclude Include="$(Shared_Module_Path)\Filter\include\Filter_Threshold.h" />
+    <ClInclude Include="$(Shared_Module_Path)\Filter\include\Filter_Truncation.h" />
+  </ItemGroup>
+
+  <ItemGroup Condition="exists('$(Shared_Module_Path)\\GlobalConfig\\Config.h')">
+    <!--Filter Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\GlobalConfig\Config.h" />
+    <ClInclude Include="$(Shared_Module_Path)\GlobalConfig\Format.h" />
+  </ItemGroup>
+  
+  <ItemGroup Condition="exists('$(Shared_Module_Path)\\ImageHelper\\src\\BmpHelper.c')">
+    <!--ImageHelper Source Files-->
+    <ClCompile Include="$(Shared_Module_Path)\ImageHelper\src\BmpHelper.c" />
+    <ClCompile Include="$(Shared_Module_Path)\ImageHelper\src\ImageConverter.c" />
+    <ClCompile Include="$(Shared_Module_Path)\ImageHelper\src\ImageDistortionCorrection.c" />
+    <ClCompile Include="$(Shared_Module_Path)\ImageHelper\src\ImageFilter.c" />
+    <ClCompile Include="$(Shared_Module_Path)\ImageHelper\src\ImageResize.c" />
+    <ClCompile Include="$(Shared_Module_Path)\ImageHelper\src\ImageRotate.c" />
+    <!--ImageHelper Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\ImageHelper\include\BmpHelper.h" />
+    <ClInclude Include="$(Shared_Module_Path)\ImageHelper\include\ImageConverter.h" />
+    <ClInclude Include="$(Shared_Module_Path)\ImageHelper\include\ImageDistortionCorrection.h" />
+    <ClInclude Include="$(Shared_Module_Path)\ImageHelper\include\ImageFilter.h" />
+    <ClInclude Include="$(Shared_Module_Path)\ImageHelper\include\ImageResize.h" />
+    <ClInclude Include="$(Shared_Module_Path)\ImageHelper\include\ImageRotate.h" />
+  </ItemGroup>
+
+  <ItemGroup Condition="exists('$(Shared_Module_Path)\\JniHelper\\src\\AndroidHelper.c')">
+    <!--JniHelper Source Files-->
+    <ClCompile Include="$(Shared_Module_Path)\JniHelper\src\AndroidHelper.c" />
+    <!--JniHelper Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\JniHelper\include\AndroidHelper.h" />
+  </ItemGroup>
+
+  <ItemGroup Condition="exists('$(Shared_Module_Path)\\MultiThread\\include\\AlvaThread.h')">
+    <!--MultiThread Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\MultiThread\include\AlvaThread.h" />
+  </ItemGroup>
+  
+  <ItemGroup Condition="exists('$(Shared_Module_Path)\\OclHelper\\src\\DE_cryption.c')">
+    <!--OclHelper Source Files-->
+    <ClCompile Include="$(Shared_Module_Path)\OclHelper\src\CL_Env.c" />
+    <ClCompile Include="$(Shared_Module_Path)\OclHelper\src\CL_Kernel_Mixup.c" />
+    <ClCompile Include="$(Shared_Module_Path)\OclHelper\src\CL_Mem.c" />
+    <ClCompile Include="$(Shared_Module_Path)\OclHelper\src\DE_cryption.c" />
+    <ClCompile Include="$(Shared_Module_Path)\OclHelper\src\enflCreateProgramWithSource.c" />
+    <!--OclHelper Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\OclHelper\include\CL_Env.h" />
+    <ClInclude Include="$(Shared_Module_Path)\OclHelper\include\CL_Kernel.h" />
+    <ClInclude Include="$(Shared_Module_Path)\OclHelper\include\CL_Mem.h" />
+    <ClInclude Include="$(Shared_Module_Path)\OclHelper\include\DE_cryption.h" />
+    <ClInclude Include="$(Shared_Module_Path)\OclHelper\include\enflCreateProgramWithSource.h" />
+  </ItemGroup>
+  <ItemGroup Condition="!exists('$(Shared_Module_Path)\\OclHelper\\src\\DE_cryption.c') and exists('$(Shared_Module_Path)\\OclHelper\\src\\CL_Env.c')">
+    <!--OclHelper Source Files-->
+    <ClCompile Include="$(Shared_Module_Path)\OclHelper\src\CL_Env.c" />
+    <ClCompile Include="$(Shared_Module_Path)\OclHelper\src\CL_Kernel.c" />
+    <ClCompile Include="$(Shared_Module_Path)\OclHelper\src\CL_Mem.c" />
+    <!--OclHelper Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\OclHelper\include\CL_Env.h" />
+    <ClInclude Include="$(Shared_Module_Path)\OclHelper\include\CL_Kernel.h" />
+    <ClInclude Include="$(Shared_Module_Path)\OclHelper\include\CL_Mem.h" />
+  </ItemGroup>
+
+  <ItemGroup Condition="exists('$(Shared_Module_Path)\\Prediction\\src\\AlvaPrediction.c')">
+    <!--Prediction Source Files-->
+    <ClCompile Include="$(Shared_Module_Path)\Prediction\src\AlvaPrediction.c" />
+    <ClCompile Include="$(Shared_Module_Path)\Prediction\src\ConstAcceleration.c" />
+    <ClCompile Include="$(Shared_Module_Path)\Prediction\src\ConstSpeed.c" />
+    <ClCompile Include="$(Shared_Module_Path)\Prediction\src\ConstSpeedH.c" />
+    <!--Prediction Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\Prediction\include\AlvaPrediction.h" />
+    <ClInclude Include="$(Shared_Module_Path)\Prediction\include\ConstAcceleration.h" />
+    <ClInclude Include="$(Shared_Module_Path)\Prediction\include\ConstSpeed.h" />
+    <ClInclude Include="$(Shared_Module_Path)\Prediction\include\ConstSpeedH.h" />
+  </ItemGroup>
+
+  <ItemGroup Condition="exists('$(Shared_Module_Path)\\Project\\src\\ComputeH_Direct.c')">
+    <!--Project Source Files-->
+    <ClCompile Include="$(Shared_Module_Path)\Project\src\ComputeH_Direct.c" />
+    <!--Project Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\Project\include\ComputeH_Direct.h" />
+  </ItemGroup>
+
+  <ItemGroup Condition="exists('$(Shared_Module_Path)\\SharedModule\\Implements\\src\\SharedMachineCode.c')">
+    <!--SharedModule Source Files-->
+    <ClCompile Include="$(Shared_Module_Path)\SharedModule\Implements\src\SharedMachineCode.c" />
+    <!--SharedModule Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\SharedModule\Implements\include\SharedMachineCode.h" />
+    <ClInclude Include="$(Shared_Module_Path)\SharedModule\Implements\interface\SharedMachineCodeInterface.h" />
+  </ItemGroup>
+  
+  <ItemGroup Condition="exists('$(Shared_Module_Path)\\std-multi-platform\\aligned_malloc.c')">
+    <!--std-multi-platform Source Files-->
+    <ClCompile Include="$(Shared_Module_Path)\std-multi-platform\aligned_malloc.c" />
+    <!--std-multi-platform Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\std-multi-platform\aligned_malloc.h" />
+    <ClInclude Include="$(Shared_Module_Path)\std-multi-platform\memory_fl.h" />
+    <ClInclude Include="$(Shared_Module_Path)\std-multi-platform\stdio_fl.h" />
+    <ClInclude Include="$(Shared_Module_Path)\std-multi-platform\stdlib_fl.h" />
+    <ClInclude Include="$(Shared_Module_Path)\std-multi-platform\string_fl.h" />
+  </ItemGroup>
+  
+  <ItemGroup Condition="exists('$(Shared_Module_Path)\\XmlHelper\\XML.c')">
+    <!--XmlHelper Source Files-->
+    <ClCompile Include="$(Shared_Module_Path)\XmlHelper\XML.c" />
+    <!--XmlHelper Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\XmlHelper\XML.h" />
+  </ItemGroup>
+  
+  <ItemGroup Condition="exists('$(Shared_Module_Path)\\MatrixCompute\\src\\AlvaMatrix.cpp')">
+    <!--MatrixCompute Source Files-->
+    <ClCompile Include="$(Shared_Module_Path)\MatrixCompute\src\AlvaMatrix.cpp" />
+    <!--MatrixCompute Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\MatrixCompute\include\AlvaMatrix.h" />
+  </ItemGroup>
+</Project>

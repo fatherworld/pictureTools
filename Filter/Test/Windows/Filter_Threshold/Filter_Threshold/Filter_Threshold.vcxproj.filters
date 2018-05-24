@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\GlobalConfig">
+      <UniqueIdentifier>{074dbdbe-26dd-48c2-93b2-5af31e284568}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\DebugTools">
+      <UniqueIdentifier>{1ea42760-b766-4fef-9333-2bc268b50936}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DebugTools">
+      <UniqueIdentifier>{1b367ab4-24df-470a-aafc-58b44be38163}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core">
+      <UniqueIdentifier>{31c18bbe-1800-4694-9ff8-f377fffdcbdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Core">
+      <UniqueIdentifier>{cdfcddca-5d4f-432c-86f6-1b4c34f1c45b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GlobalConfig\Config.h">
+      <Filter>Header Files\GlobalConfig</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalConfig\Format.h">
+      <Filter>Header Files\GlobalConfig</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugTools\include\AlvaTimer.h">
+      <Filter>Header Files\DebugTools</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugTools\include\Dump.h">
+      <Filter>Header Files\DebugTools</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugTools\include\ErrorTools.h">
+      <Filter>Header Files\DebugTools</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugTools\include\Log.h">
+      <Filter>Header Files\DebugTools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Core\include\AlvaFilter.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Core\include\Threshold.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Core\include\Damp.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Core\include\Filter_Truncation.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Core\include\Filter_ConditionDamp.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DebugTools\src\AlvaTimer.c">
+      <Filter>Source Files\DebugTools</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugTools\src\Dump.c">
+      <Filter>Source Files\DebugTools</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Core\src\Filter_Threshold.c">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Core\src\AlvaFilter.c">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Core\src\Damp.c">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Core\src\Filter_Truncation.c">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Core\src\Filter_ConditionDamp.c">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

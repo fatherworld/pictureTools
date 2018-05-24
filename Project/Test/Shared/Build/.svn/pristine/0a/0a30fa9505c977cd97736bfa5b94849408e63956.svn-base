@@ -1,0 +1,511 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--此库使用方法
+    在工程的vcxproj文件（xxx.vcxproj.filters）中的<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">下加入以下定义
+    <PropertyGroup>
+      <Shared_Module_Filter_Path>$(SolutionDir)..\..\..\Shared</Shared_Module_Filter_Path>
+    </PropertyGroup>
+    此处用于定义Shared_Module_Filter_Path绝对路径
+    在工程的vcxproj.filters（xxx.vcxproj.filters）的工程结束前（即</Project>前）加入引用
+        <Import Project="$(SolutionDir)..\..\..\Core\Build\Windows\StaticLib.vcxproj.filters" />
+    此处用于通过绝对路径引用本库
+  -->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <ItemGroup>
+        <Filter Include="Header Files\Shared">
+            <UniqueIdentifier>{7db9b213-a055-4d44-bd87-e625bb7b8eef}</UniqueIdentifier>
+        </Filter>
+        <Filter Include="Header Files\Shared\AngleHelper">
+            <UniqueIdentifier>{7db9b213-a055-4d44-bd88-e625bb7b8e8f}</UniqueIdentifier>
+        </Filter>
+        <Filter Include="Header Files\Shared\AuthChecker">
+            <UniqueIdentifier>{7db9b213-a055-4d34-bd89-e625bb7bee8f}</UniqueIdentifier>
+        </Filter>
+        <Filter Include="Header Files\Shared\Consistency">
+            <UniqueIdentifier>{7db9b213-a055-4d34-bd8a-e625bb7bee8f}</UniqueIdentifier>
+        </Filter>
+        <Filter Include="Header Files\Shared\DebugTools">
+            <UniqueIdentifier>{7db9b213-a055-4d34-bd8b-e625bb7bee8f}</UniqueIdentifier>
+        </Filter>
+        <Filter Include="Header Files\Shared\DynamicOCL">
+            <UniqueIdentifier>{7db9b213-a055-4d34-bd8c-e625bb7bee8f}</UniqueIdentifier>
+        </Filter>
+        <Filter Include="Header Files\Shared\Eigen">
+            <UniqueIdentifier>{7db9b213-a055-4d34-bd8d-e625bb7bee8f}</UniqueIdentifier>
+        </Filter>
+        <Filter Include="Header Files\Shared\Filter">
+            <UniqueIdentifier>{7db9b213-a055-4d34-bd8e-e625bb7bee8f}</UniqueIdentifier>
+        </Filter>
+        <Filter Include="Header Files\Shared\GlobalConfig">
+            <UniqueIdentifier>{7db9b213-a055-4d34-bd8f-e625bb7bee8f}</UniqueIdentifier>
+        </Filter>
+        <Filter Include="Header Files\Shared\ImageHelper">
+            <UniqueIdentifier>{7db9b213-a055-4d34-bd90-e625bb7bee8f}</UniqueIdentifier>
+        </Filter>
+        <Filter Include="Header Files\Shared\JniHelper">
+            <UniqueIdentifier>{7db9b213-a055-4d34-bd91-e625bb7bee8f}</UniqueIdentifier>
+        </Filter>
+        <Filter Include="Header Files\Shared\MultiThread">
+            <UniqueIdentifier>{7db9b213-a055-4d34-bd92-e625bb7bee8f}</UniqueIdentifier>
+        </Filter>
+        <Filter Include="Header Files\Shared\OclHelper">
+            <UniqueIdentifier>{7db9b213-a055-4d34-bd93-e625bb7bee8f}</UniqueIdentifier>
+        </Filter>
+        <Filter Include="Header Files\Shared\PoseHelper">
+            <UniqueIdentifier>{7db9b213-a055-4d34-bd94-e625bb7bee8f}</UniqueIdentifier>
+        </Filter>
+        <Filter Include="Header Files\Shared\Prediction">
+            <UniqueIdentifier>{7db9b213-a055-4d34-bd95-e625bb7bee8f}</UniqueIdentifier>
+        </Filter>
+        <Filter Include="Header Files\Shared\Project">
+            <UniqueIdentifier>{7db9b213-a055-4d34-bd96-e625bb7bee8f}</UniqueIdentifier>
+        </Filter>
+        <Filter Include="Header Files\Shared\SharedModule">
+            <UniqueIdentifier>{7db9b213-a055-4d34-bd97-e625bb7bee8f}</UniqueIdentifier>
+        </Filter>
+        <Filter Include="Header Files\Shared\std-multi-platform">
+            <UniqueIdentifier>{7db9b213-a055-4d34-bd98-e625bb7bee8f}</UniqueIdentifier>
+        </Filter>
+        <Filter Include="Header Files\Shared\TooN">
+            <UniqueIdentifier>{7db9b213-a055-4d34-bd99-e625bb7bee8f}</UniqueIdentifier>
+        </Filter>
+        <Filter Include="Header Files\Shared\XmlHelper">
+            <UniqueIdentifier>{7db9b213-a055-4d34-bd9a-e625bb7bee8f}</UniqueIdentifier>
+        </Filter>
+        <Filter Include="Header Files\Shared\DataQueue">
+            <UniqueIdentifier>{7db9b213-a055-4d34-bd9b-e625bb7bee8f}</UniqueIdentifier>
+        </Filter>
+        <Filter Include="Header Files\Shared\MatrixCompute">
+            <UniqueIdentifier>{7db9b213-a055-4d34-bd9c-e625bb7bee8f}</UniqueIdentifier>
+        </Filter>
+    </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files\Shared">
+      <UniqueIdentifier>{7db9b213-a055-4d44-ba87-e625bb7b8eef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shared\AngleHelper">
+      <UniqueIdentifier>{7db9b213-a055-4d44-ba88-e625bb7b8e8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shared\AuthChecker">
+      <UniqueIdentifier>{7db9b213-a055-4d34-ba89-e625bb7bee8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shared\Consistency">
+      <UniqueIdentifier>{7db9b213-a055-4d34-ba8a-e625bb7bee8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shared\DebugTools">
+      <UniqueIdentifier>{7db9b213-a055-4d34-ba8b-e625bb7bee8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shared\DynamicOCL">
+      <UniqueIdentifier>{7db9b213-a055-4d34-ba8c-e625bb7bee8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shared\Eigen">
+      <UniqueIdentifier>{7db9b213-a055-4d34-ba8d-e625bb7bee8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shared\Filter">
+      <UniqueIdentifier>{7db9b213-a055-4d34-ba8e-e625bb7bee8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shared\GlobalConfig">
+      <UniqueIdentifier>{7db9b213-a055-4d34-ba8f-e625bb7bee8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shared\ImageHelper">
+      <UniqueIdentifier>{7db9b213-a055-4d34-ba90-e625bb7bee8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shared\JniHelper">
+      <UniqueIdentifier>{7db9b213-a055-4d34-ba91-e625bb7bee8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shared\MultiThread">
+      <UniqueIdentifier>{7db9b213-a055-4d34-ba92-e625bb7bee8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shared\OclHelper">
+      <UniqueIdentifier>{7db9b213-a055-4d34-ba93-e625bb7bee8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shared\PoseHelper">
+      <UniqueIdentifier>{7db9b213-a055-4d34-ba94-e625bb7bee8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shared\Prediction">
+      <UniqueIdentifier>{7db9b213-a055-4d34-ba95-e625bb7bee8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shared\Project">
+      <UniqueIdentifier>{7db9b213-a055-4d34-ba96-e625bb7bee8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shared\SharedModule">
+      <UniqueIdentifier>{7db9b213-a055-4d34-ba97-e625bb7bee8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shared\std-multi-platform">
+      <UniqueIdentifier>{7db9b213-a055-4d34-ba98-e625bb7bee8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shared\TooN">
+      <UniqueIdentifier>{7db9b213-a055-4d34-ba99-e625bb7bee8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shared\XmlHelper">
+      <UniqueIdentifier>{7db9b213-a055-4d34-ba9a-e625bb7bee8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shared\DataQueue">
+      <UniqueIdentifier>{7db9b213-a055-4d34-ba9b-e625bb7bee8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shared\MatrixCompute">
+      <UniqueIdentifier>{7db9b213-a055-4d34-ba9c-e625bb7bee8f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  
+  <ItemGroup Condition="exists('$(Shared_Module_Filter_Path)\PoseHelper\Core\src\ComputePose.cpp')">
+    <!--PoseHelper-->
+    <ClCompile Include="$(Shared_Module_Path)\PoseHelper\Core\src\ComputeH.cpp">
+      <Filter>Source Files\Shared\PoseHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="$(Shared_Module_Path)\PoseHelper\Core\src\ComputePose.cpp">
+      <Filter>Source Files\Shared\PoseHelper</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup Condition="exists('$(Shared_Module_Filter_Path)\PoseHelper\interface\ComputePose.h')">
+    <!--PoseHelper  Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\PoseHelper\interface\ComputePose.h">
+      <Filter>Header Files\Shared\PoseHelper</Filter>
+    </ClInclude>
+  </ItemGroup>
+  
+  <ItemGroup Condition="exists('$(Shared_Module_Filter_Path)\AngleHelper\src\EulerRotationMatrix.c')">
+    <!--AngleHelper Source Files-->
+    <ClCompile Include="$(Shared_Module_Path)\AngleHelper\src\EulerRotationMatrix.c">
+      <Filter>Source Files\Shared\AngleHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="$(Shared_Module_Path)\AngleHelper\src\QuarternionRotationMatrix.c">
+      <Filter>Source Files\Shared\AngleHelper</Filter>
+    </ClCompile>
+    <!--AngleHelper Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\AngleHelper\include\EulerRotationMatrix.h">
+      <Filter>Header Files\Shared\AngleHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="$(Shared_Module_Path)\AngleHelper\include\QuarternionRotationMatrix.h">
+      <Filter>Header Files\Shared\AngleHelper</Filter>
+    </ClInclude>
+  </ItemGroup>
+  
+  <ItemGroup Condition="exists('$(Shared_Module_Filter_Path)\Consistency\src\Consistency_Rand.c')">
+    <!--Consistency Source Files-->
+    <ClCompile Include="$(Shared_Module_Path)\Consistency\src\Consistency_Rand.c">
+      <Filter>Source Files\Shared\Consistency</Filter>
+    </ClCompile>
+    <!--Consistency Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\Consistency\include\Consistency_Rand.h">
+      <Filter>Header Files\Shared\Consistency</Filter>
+    </ClInclude>
+  </ItemGroup>
+  
+  <ItemGroup Condition="exists('$(Shared_Module_Filter_Path)\DataQueue\Implements\src\DataQueue.c')">
+    <!--DataQueue Source Files-->
+    <ClCompile Include="$(Shared_Module_Path)\DataQueue\Implements\src\DataQueue.c">
+      <Filter>Source Files\Shared\DataQueue</Filter>
+    </ClCompile>
+    <!--DataQueue Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\DataQueue\Implements\include\DataQueue.h">
+      <Filter>Header Files\Shared\DataQueue</Filter>
+    </ClInclude>
+    <ClInclude Include="$(Shared_Module_Path)\DataQueue\Implements\interface\DataQueueInterface.h">
+      <Filter>Header Files\Shared\DataQueue</Filter>
+    </ClInclude>
+  </ItemGroup>  
+  
+  <ItemGroup Condition="exists('$(Shared_Module_Filter_Path)\DebugTools\src\AlvaTimer.c')">
+    <!--DebugTools Source Files-->
+    <ClCompile Include="$(Shared_Module_Path)\DebugTools\src\AlvaTimer.c">
+      <Filter>Source Files\Shared\DebugTools</Filter>
+    </ClCompile>
+    <ClCompile Include="$(Shared_Module_Path)\DebugTools\src\Dump.c">
+      <Filter>Source Files\Shared\DebugTools</Filter>
+    </ClCompile>
+    <!--DebugTools Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\DebugTools\include\AlvaTimer.h">
+      <Filter>Header Files\Shared\DebugTools</Filter>
+    </ClInclude>
+    <ClInclude Include="$(Shared_Module_Path)\DebugTools\include\Dump.h">
+      <Filter>Header Files\Shared\DebugTools</Filter>
+    </ClInclude>
+    <ClInclude Include="$(Shared_Module_Path)\DebugTools\include\ErrorTools.h">
+      <Filter>Header Files\Shared\DebugTools</Filter>
+    </ClInclude>
+    <ClInclude Include="$(Shared_Module_Path)\DebugTools\include\Log.h">
+      <Filter>Header Files\Shared\DebugTools</Filter>
+    </ClInclude>
+  </ItemGroup>
+  
+  <ItemGroup Condition="exists('$(Shared_Module_Filter_Path)\DynamicOCL\src\Module.c')">
+    <!--DynamicOCL Source Files-->
+    <ClCompile Include="$(Shared_Module_Path)\DynamicOCL\src\Module.c">
+      <Filter>Source Files\Shared\DynamicOCL</Filter>
+    </ClCompile>
+    <ClCompile Include="$(Shared_Module_Path)\DynamicOCL\src\SafeCL.c">
+      <Filter>Source Files\Shared\DynamicOCL</Filter>
+    </ClCompile>
+    <ClCompile Include="$(Shared_Module_Path)\DynamicOCL\src\SafeCL_GL.c">
+      <Filter>Source Files\Shared\DynamicOCL</Filter>
+    </ClCompile>
+    <!--DynamicOCL Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\DynamicOCL\include\Module.h">
+      <Filter>Header Files\Shared\DynamicOCL</Filter>
+    </ClInclude>
+    <ClInclude Include="$(Shared_Module_Path)\DynamicOCL\include\SafeCL.h">
+      <Filter>Header Files\Shared\DynamicOCL</Filter>
+    </ClInclude>
+    <ClInclude Include="$(Shared_Module_Path)\DynamicOCL\include\SafeCL_GL.h">
+      <Filter>Header Files\Shared\DynamicOCL</Filter>
+    </ClInclude>
+  </ItemGroup>
+  
+  <ItemGroup Condition="exists('$(Shared_Module_Filter_Path)\Filter\src\AlvaFilter.c')">
+    <!--Filter Source Files-->
+    <ClCompile Include="$(Shared_Module_Path)\Filter\src\AlvaFilter.c">
+      <Filter>Source Files\Shared\Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="$(Shared_Module_Path)\Filter\src\Damp.c">
+      <Filter>Source Files\Shared\Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="$(Shared_Module_Path)\Filter\src\Filter_ConditionDamp.c">
+      <Filter>Source Files\Shared\Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="$(Shared_Module_Path)\Filter\src\Filter_Threshold.c">
+      <Filter>Source Files\Shared\Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="$(Shared_Module_Path)\Filter\src\Filter_Truncation.c">
+      <Filter>Source Files\Shared\Filter</Filter>
+    </ClCompile>
+    <!--Filter Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\Filter\include\AlvaFilter.h">
+      <Filter>Header Files\Shared\Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="$(Shared_Module_Path)\Filter\include\Damp.h">
+      <Filter>Header Files\Shared\Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="$(Shared_Module_Path)\Filter\include\Filter_ConditionDamp.h">
+      <Filter>Header Files\Shared\Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="$(Shared_Module_Path)\Filter\include\Filter_Threshold.h">
+      <Filter>Header Files\Shared\Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="$(Shared_Module_Path)\Filter\include\Filter_Truncation.h">
+      <Filter>Header Files\Shared\Filter</Filter>
+    </ClInclude>
+  </ItemGroup>
+  
+  <ItemGroup Condition="exists('$(Shared_Module_Filter_Path)\GlobalConfig\Config.h')">
+    <!--Filter Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\GlobalConfig\Config.h">
+      <Filter>Header Files\Shared\GlobalConfig</Filter>
+    </ClInclude>
+    <ClInclude Include="$(Shared_Module_Path)\GlobalConfig\Format.h">
+      <Filter>Header Files\Shared\GlobalConfig</Filter>
+    </ClInclude>
+  </ItemGroup>  
+  
+  <ItemGroup Condition="exists('$(Shared_Module_Filter_Path)\ImageHelper\src\BmpHelper.c')">
+    <!--ImageHelper Source Files-->
+    <ClCompile Include="$(Shared_Module_Path)\ImageHelper\src\BmpHelper.c">
+      <Filter>Source Files\Shared\ImageHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="$(Shared_Module_Path)\ImageHelper\src\ImageConverter.c">
+      <Filter>Source Files\Shared\ImageHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="$(Shared_Module_Path)\ImageHelper\src\ImageDistortionCorrection.c">
+      <Filter>Source Files\Shared\ImageHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="$(Shared_Module_Path)\ImageHelper\src\ImageFilter.c">
+      <Filter>Source Files\Shared\ImageHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="$(Shared_Module_Path)\ImageHelper\src\ImageResize.c">
+      <Filter>Source Files\Shared\ImageHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="$(Shared_Module_Path)\ImageHelper\src\ImageRotate.c">
+      <Filter>Source Files\Shared\ImageHelper</Filter>
+    </ClCompile>
+    <!--ImageHelper Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\ImageHelper\include\BmpHelper.h">
+      <Filter>Header Files\Shared\ImageHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="$(Shared_Module_Path)\ImageHelper\include\ImageConverter.h">
+      <Filter>Header Files\Shared\ImageHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="$(Shared_Module_Path)\ImageHelper\include\ImageDistortionCorrection.h">
+      <Filter>Header Files\Shared\ImageHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="$(Shared_Module_Path)\ImageHelper\include\ImageFilter.h">
+      <Filter>Header Files\Shared\ImageHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="$(Shared_Module_Path)\ImageHelper\include\ImageResize.h">
+      <Filter>Header Files\Shared\ImageHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="$(Shared_Module_Path)\ImageHelper\include\ImageRotate.h">
+      <Filter>Header Files\Shared\ImageHelper</Filter>
+    </ClInclude>
+  </ItemGroup>
+  
+  <ItemGroup Condition="exists('$(Shared_Module_Filter_Path)\JniHelper\src\AndroidHelper.c')">
+    <!--JniHelper Source Files-->
+    <ClCompile Include="$(Shared_Module_Path)\JniHelper\src\AndroidHelper.c">
+      <Filter>Source Files\Shared\JniHelper</Filter>
+    </ClCompile>
+    <!--JniHelper Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\JniHelper\include\AndroidHelper.h">
+      <Filter>Header Files\Shared\JniHelper</Filter>
+    </ClInclude>
+  </ItemGroup>
+  
+  <ItemGroup Condition="exists('$(Shared_Module_Filter_Path)\\MultiThread\\include\\AlvaThread.h')">
+    <!--MultiThread Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\MultiThread\include\AlvaThread.h">
+      <Filter>Header Files\Shared\MultiThread</Filter>
+    </ClInclude>
+  </ItemGroup>
+  
+  <ItemGroup Condition="exists('$(Shared_Module_Filter_Path)\OclHelper\src\DE_cryption.c')">
+    <!--OclHelper Source Files-->
+    <ClCompile Include="$(Shared_Module_Path)\OclHelper\src\CL_Env.c">
+      <Filter>Source Files\Shared\OclHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="$(Shared_Module_Path)\OclHelper\src\CL_Kernel_Mixup.c">
+      <Filter>Source Files\Shared\OclHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="$(Shared_Module_Path)\OclHelper\src\CL_Mem.c">
+      <Filter>Source Files\Shared\OclHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="$(Shared_Module_Path)\OclHelper\src\DE_cryption.c">
+      <Filter>Source Files\Shared\OclHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="$(Shared_Module_Path)\OclHelper\src\enflCreateProgramWithSource.c">
+      <Filter>Source Files\Shared\OclHelper</Filter>
+    </ClCompile>
+    <!--OclHelper Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\OclHelper\include\CL_Env.h">
+      <Filter>Header Files\Shared\OclHelper</Filter>
+    </ClInclude>    
+    <ClInclude Include="$(Shared_Module_Path)\OclHelper\include\CL_Kernel.h">
+      <Filter>Header Files\Shared\OclHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="$(Shared_Module_Path)\OclHelper\include\CL_Mem.h">
+      <Filter>Header Files\Shared\OclHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="$(Shared_Module_Path)\OclHelper\include\DE_cryption.h">
+      <Filter>Header Files\Shared\OclHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="$(Shared_Module_Path)\OclHelper\include\enflCreateProgramWithSource.h">
+      <Filter>Header Files\Shared\OclHelper</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup Condition="!exists('$(Shared_Module_Filter_Path)\OclHelper\src\DE_cryption.c') and exists('$(Shared_Module_Filter_Path)\OclHelper\src\CL_Env.c')">
+    <!--OclHelper Source Files-->
+    <ClCompile Include="$(Shared_Module_Path)\OclHelper\src\CL_Env.c">
+      <Filter>Source Files\Shared\OclHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="$(Shared_Module_Path)\OclHelper\src\CL_Kernel.c">
+      <Filter>Source Files\Shared\OclHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="$(Shared_Module_Path)\OclHelper\src\CL_Mem.c">
+      <Filter>Source Files\Shared\OclHelper</Filter>
+    </ClCompile>
+    <!--OclHelper Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\OclHelper\include\CL_Env.h">
+      <Filter>Header Files\Shared\OclHelper</Filter>
+    </ClInclude>    
+    <ClInclude Include="$(Shared_Module_Path)\OclHelper\include\CL_Kernel.h">
+      <Filter>Header Files\Shared\OclHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="$(Shared_Module_Path)\OclHelper\include\CL_Mem.h">
+      <Filter>Header Files\Shared\OclHelper</Filter>
+    </ClInclude>
+  </ItemGroup>
+  
+  <ItemGroup Condition="exists('$(Shared_Module_Filter_Path)\Prediction\src\AlvaPrediction.c')">
+    <!--Prediction Source Files-->
+    <ClCompile Include="$(Shared_Module_Path)\Prediction\src\AlvaPrediction.c">
+      <Filter>Source Files\Shared\Prediction</Filter>
+    </ClCompile>
+    <ClCompile Include="$(Shared_Module_Path)\Prediction\src\ConstAcceleration.c">
+      <Filter>Source Files\Shared\Prediction</Filter>
+    </ClCompile>
+    <ClCompile Include="$(Shared_Module_Path)\Prediction\src\ConstSpeed.c">
+      <Filter>Source Files\Shared\Prediction</Filter>
+    </ClCompile>
+    <ClCompile Include="$(Shared_Module_Path)\Prediction\src\ConstSpeedH.c">
+      <Filter>Source Files\Shared\Prediction</Filter>
+    </ClCompile>
+    <!--Prediction Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\Prediction\include\AlvaPrediction.h">
+      <Filter>Header Files\Shared\Prediction</Filter>
+    </ClInclude>
+    <ClInclude Include="$(Shared_Module_Path)\Prediction\include\ConstAcceleration.h">
+      <Filter>Header Files\Shared\Prediction</Filter>
+    </ClInclude>
+    <ClInclude Include="$(Shared_Module_Path)\Prediction\include\ConstSpeed.h">
+      <Filter>Header Files\Shared\Prediction</Filter>
+    </ClInclude>
+    <ClInclude Include="$(Shared_Module_Path)\Prediction\include\ConstSpeedH.h">
+      <Filter>Header Files\Shared\Prediction</Filter>
+    </ClInclude>
+  </ItemGroup>
+  
+  <ItemGroup Condition="exists('$(Shared_Module_Filter_Path)\Project\src\ComputeH_Direct.c')">
+    <!--Project Source Files-->
+    <ClCompile Include="$(Shared_Module_Path)\Project\src\ComputeH_Direct.c">
+      <Filter>Source Files\Shared\Project</Filter>
+    </ClCompile>
+    <!--Project Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\Project\include\ComputeH_Direct.h">
+      <Filter>Header Files\Shared\Project</Filter>
+    </ClInclude>
+  </ItemGroup>
+  
+  <ItemGroup Condition="exists('$(Shared_Module_Filter_Path)\SharedModule\Implements\src\SharedMachineCode.c')">
+    <!--SharedModule Source Files-->
+    <ClCompile Include="$(Shared_Module_Path)\SharedModule\Implements\src\SharedMachineCode.c">
+      <Filter>Source Files\Shared\SharedModule</Filter>
+    </ClCompile>
+    <!--SharedModule Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\SharedModule\Implements\include\SharedMachineCode.h">
+      <Filter>Header Files\Shared\SharedModule</Filter>
+    </ClInclude>
+    <ClInclude Include="$(Shared_Module_Path)\SharedModule\Implements\interface\SharedMachineCodeInterface.h">
+      <Filter>Header Files\Shared\SharedModule</Filter>
+    </ClInclude>
+  </ItemGroup>
+  
+  <ItemGroup Condition="exists('$(Shared_Module_Filter_Path)\std-multi-platform\aligned_malloc.c')">
+    <!--std-multi-platform Source Files-->
+    <ClCompile Include="$(Shared_Module_Path)\std-multi-platform\aligned_malloc.c">
+      <Filter>Source Files\Shared\std-multi-platform</Filter>
+    </ClCompile>
+    <!--SharedModule Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\std-multi-platform\aligned_malloc.h">
+      <Filter>Header Files\Shared\std-multi-platform</Filter>
+    </ClInclude>
+    <ClInclude Include="$(Shared_Module_Path)\std-multi-platform\memory_fl.h">
+      <Filter>Header Files\Shared\std-multi-platform</Filter>
+    </ClInclude>
+    <ClInclude Include="$(Shared_Module_Path)\std-multi-platform\stdio_fl.h">
+      <Filter>Header Files\Shared\std-multi-platform</Filter>
+    </ClInclude>
+    <ClInclude Include="$(Shared_Module_Path)\std-multi-platform\stdlib_fl.h">
+      <Filter>Header Files\Shared\std-multi-platform</Filter>
+    </ClInclude>
+    <ClInclude Include="$(Shared_Module_Path)\std-multi-platform\string_fl.h">
+      <Filter>Header Files\Shared\std-multi-platform</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup Condition="exists('$(Shared_Module_Filter_Path)\XmlHelper\XML.c')">
+    <!--XmlHelper Source Files-->
+    <ClCompile Include="$(Shared_Module_Path)\XmlHelper\XML.c">
+      <Filter>Source Files\Shared\XmlHelper</Filter>
+    </ClCompile>
+    <!--XmlHelper Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\XmlHelper\XML.h">
+      <Filter>Header Files\Shared\XmlHelper</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup Condition="exists('$(Shared_Module_Filter_Path)\MatrixCompute\src\AlvaMatrix.c')">
+    <!--MatrixCompute Source Files-->
+    <ClCompile Include="$(Shared_Module_Path)\MatrixCompute\src\AlvaMatrix.c">
+      <Filter>Source Files\Shared\MatrixCompute</Filter>
+    </ClCompile>
+    <!--MatrixCompute Header Files-->
+    <ClInclude Include="$(Shared_Module_Path)\MatrixCompute\include\AlvaMatrix.h">
+      <Filter>Header Files\Shared\MatrixCompute</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

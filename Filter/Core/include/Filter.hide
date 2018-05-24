@@ -1,0 +1,15 @@
+AlvaInitFilter
+AlvaFilter
+AlvaResetFilter
+AlvaUnitFilter
+damp_init
+truncation_init
+threshold_init
+condition_damp_init
+initMemory
+threshold
+truncation
+damp
+condition_damp
+unit
+reset

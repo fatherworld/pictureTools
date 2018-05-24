@@ -1,0 +1,9 @@
+AllocComputeH_Direct_Data
+FreeComputeH_Direct_Data
+ComputeHHomogeneous
+ComputeHMatrixTranspose
+ComputeHfMatmul
+ComputeHgaussj
+setComputeH_Direct_Data
+setComputeH_Direct_Data_disperse
+ComputeH_Direct

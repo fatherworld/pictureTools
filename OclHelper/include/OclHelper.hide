@@ -1,0 +1,17 @@
+getCLEnv
+initPlatform
+initDevices
+initContext
+initCommandQueue
+initCLEnv
+unitCLEnv
+getMemList
+AddBuffers
+AddImages
+WriteBuffer
+ReadBuffer
+UnitOneMem
+UnitMem
+getKernelList
+InitKernelList
+UnitKernelList
