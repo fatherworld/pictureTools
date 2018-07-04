@@ -1,8 +1,5 @@
 #include "Config.h"
 
-#include <stdlib.h>
-#include "stdio_fl.h"
-
 #define LOG_TAG "XML"
 #include "Log.h"
 #include "ErrorTools.h"
@@ -12,36 +9,50 @@
 
 #include "XML.h"
 
-#define FILE_NUM 0x8900
+#define FILE_NUM 0x0100
 
 static char* xmlHeader = "<?xml version=\"1.0\" encoding=\"ASCII\"?>";
 
 static char* findProperty(char* data, pXmlProperty* xmlProperty);
 static char* findContent(char* data, char* end, pXmlContent* xmlContent);
+static int content_is_value(char* data, char*end);
 
 static char* getStart(char* data) {
 
 #undef FUNC_CODE
 #define FUNC_CODE 0x01
-
-	char* ptrS = strstr(data, "<");
-	char* ptrT = strstr(data, "</");
-
-	if (ptrS == ptrT) {
-		return NULL;
-	}
-	else {
-		return ptrS;
-	}
+    return strstr(data, "<");
 }
 
-static char* getName(char* data) {
+static char* getName(char* data, char** elebegin) {
 
 #undef FUNC_CODE
 #define FUNC_CODE 0x02
 
     char* pD = data;
-    int nameLength = 0;
+    char* tempValue = data;
+    char* hasContValue1 = NULL;
+    char* hasContValue2 = NULL;
+    while (1)
+    {
+        hasContValue1 = strstr(tempValue, "<");
+        hasContValue2 = strstr(tempValue, "/");
+        if (hasContValue1)
+        {
+            if (hasContValue2)
+                if (hasContValue2 - hasContValue1 == 1)
+                {
+                    pD = strstr(tempValue, ">") + 1;
+                    tempValue = pD;
+                }
+                else
+                    break;
+            else
+                break;
+        }
+        else
+            break;
+    }
 
     while (' ' == *pD || '\n' == *pD || '<' == *pD || '\t' == *pD) {
         pD++;
@@ -51,40 +62,43 @@ static char* getName(char* data) {
     char* pF = strstr(pD, "/");
 
     char* pNe = NULL;
-    if (NULL != pS) 
+
+    if (NULL != pS)
+    {
         pNe = pS;
-    if (NULL != pE){
-        if(NULL == pNe){
-            pNe = pE;
+        if (NULL != pE)
+        {
+            pNe = pNe < pE ? pNe : pE;
+            if (pF != NULL)
+                pNe = pNe < pF ? pNe : pF;
         }
-        else{
-            pNe = pE < pNe ? pE : pNe;
+        else
+        {
+            if (NULL != pF)
+                pNe = pNe < pF ? pNe : pF;
         }
     }
-    if (NULL != pF){
-        if(NULL == pNe){
+    else
+    {
+        if (NULL == pE)
             pNe = pF;
-        }
-        else{
-            pNe = pF < pNe ? pF : pNe;
-        }
+        if (NULL == pF)
+            pNe = pE;
+        if (NULL != pE && pF != NULL)
+            pNe = pE < pF ? pE : pF;
     }
 
+
     if (NULL == pNe) {
-        //LOGE("Not an element\n");
+        LOGE("Not an element\n");
         return NULL;
     }
 
     pNe -= 1;
 
-    nameLength = (int)(pNe - pD + 1);
-	if (0 == nameLength) {
-		return NULL;
-	}
-    char* ptr = (char*)malloc(nameLength + 1);
-    memset(ptr, 0, nameLength + 1);
-
-    strncpy_fl(ptr, nameLength + 1, pD, nameLength);
+    char* ptr = (char*)malloc(pNe - pD + 1 + 1);
+    *elebegin = tempValue;
+    strncpy_fl(ptr, pNe - pD + 1 + 1, pD, pNe - pD + 1);
 
     return ptr;
 }
@@ -110,17 +124,41 @@ static char* getEnd(char* data, char* name) {
 }
 
 static char* findElements(char* data, pXmlElement xmlElement) {
-    
+
 #undef FUNC_CODE
 #define FUNC_CODE 0x04
 
     char *eleEnd = NULL, *eleStart = NULL;
 
+
+
     eleStart = getStart(data);
-	if (NULL != eleStart) {
-		xmlElement->name = getName(eleStart);
-		eleEnd = getEnd(data, xmlElement->name);
-	}
+    char temp_elename[100] = { 0 };
+    char* elebegin;
+    xmlElement->name = getName(eleStart, &elebegin);
+    char* nameEnd = strstr(eleStart, ">");
+    memcpy(temp_elename, eleStart, 100);
+   //strcpy_fl(temp_elename,100, eleStart);
+   // strncpy(temp_elename, eleStart, 99);
+    if (!strstr(temp_elename, xmlElement->name))
+    {
+        eleStart = nameEnd + 1;
+        while (' ' == *eleStart || '\n' == *eleStart || '\t' == *eleStart)
+            eleStart++;
+
+        for (char* cur = eleStart; cur <elebegin; cur++)
+        {
+            if (*cur == '<' && *(cur + 1) == '/')
+            {
+                eleStart = elebegin + 1;
+                break;
+            }
+
+        }
+        return eleStart;
+    }
+
+    eleEnd = getEnd(data, xmlElement->name);
 
     if (NULL == eleStart || NULL == eleEnd || NULL == xmlElement->name)
         return data;
@@ -132,17 +170,18 @@ static char* findElements(char* data, pXmlElement xmlElement) {
     while (' ' == *ptr || '\n' == *ptr || '\t' == *ptr)
         ptr++;
 
-    if(ptr < eleEnd)
+    if (ptr < eleEnd)
         ptr = findContent(ptr, eleEnd, &(xmlElement->content));
 
-    return eleEnd;
+    if (ptr > eleEnd)
+        return ptr;
+    else
+        return eleEnd;
 }
 
+
+//问题可能就是在这，即标签必须要有属性。
 static char* findPropertyPair(char* data, pXmlProperty xmlProperty) {
-
-#undef FUNC_CODE
-#define FUNC_CODE 0x05
-
     char* nameStart = data;
     while (' ' == *nameStart)
         nameStart++;
@@ -151,14 +190,12 @@ static char* findPropertyPair(char* data, pXmlProperty xmlProperty) {
     char* valueStart = strstr(nameEnd, "\"") + 1;
     char* valueEnd = strstr(valueStart, "\"") - 1;
 
-    int nameLength = (int)(nameEnd - nameStart + 1);
-    int valueLength = (int)(valueEnd - valueStart + 1);
+    int nameLength = nameEnd - nameStart + 1;
+    int valueLength = valueEnd - valueStart + 1;
     xmlProperty->name = (char*)malloc(nameLength + 1);
-    memset(xmlProperty->name, 0, nameLength + 1);
     xmlProperty->value = (char*)malloc(valueLength + 1);
-    memset(xmlProperty->value, 0, valueLength + 1);
 
-    strncpy_fl(xmlProperty->name , nameLength + 1 , nameStart , nameLength );
+    strncpy_fl(xmlProperty->name, nameLength + 1, nameStart, nameLength);
     strncpy_fl(xmlProperty->value, valueLength + 1, valueStart, valueLength);
 
     xmlProperty->next = NULL;
@@ -167,15 +204,11 @@ static char* findPropertyPair(char* data, pXmlProperty xmlProperty) {
 }
 
 static char* findProperty(char* data, pXmlProperty* xmlProperty) {
-
-#undef FUNC_CODE
-#define FUNC_CODE 0x06
-
     char* endptr = strstr(data, ">");
 
     char* ptr = data;
 
-    while (*ptr == ' ' || *ptr == '\n' || *ptr == '\t')
+    while (*ptr == ' ' || *ptr == '\n')
         ptr++;
 
     pXmlProperty mproperty = NULL, tproperty = NULL;
@@ -184,7 +217,7 @@ static char* findProperty(char* data, pXmlProperty* xmlProperty) {
         tproperty = (pXmlProperty)malloc(sizeof(XmlProperty));
         memset(tproperty, 0, sizeof(XmlProperty));
 
-        if(NULL == *xmlProperty)
+        if (NULL == *xmlProperty)
             *xmlProperty = tproperty;
 
         if (NULL == mproperty) {
@@ -204,49 +237,85 @@ static char* findProperty(char* data, pXmlProperty* xmlProperty) {
     return endptr + 1;
 }
 
+static int content_is_value(char* data, char*end)
+{
+    int count_left_parent = 0;
+    int count_right_parent = 0;
+    for (char* begin = data; begin < end; begin++)
+    {
+
+        if (*begin == '<')
+        {
+            count_left_parent++;
+
+        }
+        if (*begin == '>')
+        {
+            count_right_parent++;
+
+        }
+        if (count_left_parent  > 1 || count_right_parent > 1)
+            return 0;
+    }
+    return 1;
+}
+
 static char* findContent(char* data, char* end, pXmlContent* xmlContent) {
-
-#undef FUNC_CODE
-#define FUNC_CODE 0x07
-
     char* ptr = data;
 
     while (*ptr == ' ' || *ptr == '\n' || *ptr == '\t')
         ptr++;
 
-	if ('<' == (*ptr) && '/' == *(ptr + 1))
-		return ptr;
-
     pXmlElement mE = NULL, pE = NULL;
 
-    while (ptr < end) {
+
+    if (content_is_value(ptr, end))
+    {
         if (*xmlContent == NULL) {
             *xmlContent = (pXmlContent)malloc(sizeof(XmlContent));
             memset(*xmlContent, 0, sizeof(XmlContent));
         }
-
-        pE = (pXmlElement)malloc(sizeof(XmlElement));
-        memset(pE, 0, sizeof(XmlElement));
-        
-        if ((*xmlContent)->pelement == NULL) {
-            (*xmlContent)->pelement = pE;
+        if ((*xmlContent)->value == NULL)
+        {
+            ((*xmlContent)->value) = (char*)malloc(sizeof(char)*(strstr(ptr, "</") - ptr + 1));
+            memset((*xmlContent)->value, 0, sizeof(char)*(strstr(ptr, "</") - ptr + 1));
+            memcpy((*xmlContent)->value, ptr, strstr(ptr, "</") - ptr);
         }
 
-        if(NULL == mE)
-            mE = pE;
-        else {
-            mE->next = pE;
-            mE = mE->next;
+        ptr = strstr(ptr, ">") + 1;
+    }
+    else {
+        while (ptr < end) {
+
+            if (*xmlContent == NULL) {
+                *xmlContent = (pXmlContent)malloc(sizeof(XmlContent));
+                memset(*xmlContent, 0, sizeof(XmlContent));
+            }
+
+            pE = (pXmlElement)malloc(sizeof(XmlElement));
+            memset(pE, 0, sizeof(XmlElement));
+
+            if ((*xmlContent)->pelement == NULL) {
+                (*xmlContent)->pelement = pE;
+            }
+
+            if (NULL == mE)
+                mE = pE;
+            else {
+                mE->next = pE;
+                mE = mE->next;
+            }
+
+            ptr = findElements(ptr, pE);
+            pE = pE->next;
+
+            while (' ' == *ptr || '\n' == *ptr || '\t' == *ptr)
+                ptr++;
+
+            if ('<' == (*ptr) && '/' == *(ptr + 1))
+                break;
+
         }
-
-        ptr = findElements(ptr, pE);
-        pE = pE->next;
-
-        while (' ' == *ptr || '\n' == *ptr || '\t' == *ptr)
-            ptr++;
-
-        if ('<' == (*ptr) && '/' == *(ptr + 1))
-            break;
     }
 
     return ptr;
@@ -255,12 +324,12 @@ static char* findContent(char* data, char* end, pXmlContent* xmlContent) {
 int initXml(char* data, pXML xml) {
 
 #undef FUNC_CODE
-#define FUNC_CODE 0x08
+#define FUNC_CODE 0x01
 
     char* ptr = NULL;
 
     pXmlElement pE = NULL, tE = NULL;
-    
+/*
     if (NULL != data) {
         char* header = strstr(data, xmlHeader);
         if (NULL == header) {
@@ -268,16 +337,21 @@ int initXml(char* data, pXML xml) {
             return ERROR_CODE(0x001 | ERROR_OWNER);
         }
     }
-
+    */
     xml->header = (char*)malloc(strlen(xmlHeader) + 1);
     strcpy_fl(xml->header, strlen(xmlHeader) + 1, xmlHeader);
     xml->body = NULL;
 
     if (NULL != data) {
-        ptr = data + strlen(xmlHeader);
 
+        char* header = strstr(data, xmlHeader);
+        if (NULL == header) {
+            ptr = data;
+        }
+        else
+            ptr = data + strlen(xmlHeader);
         while ((*ptr) != '\0') {
-            
+
             tE = (pXmlElement)malloc(sizeof(XmlElement));
             memset(tE, 0, sizeof(XmlElement));
 
@@ -292,7 +366,7 @@ int initXml(char* data, pXML xml) {
             }
 
             ptr = findElements(ptr, tE);
-            while ((*ptr) == ' ' || (*ptr) == '\n' || *ptr == '\t')
+            while ((*ptr) == ' ' || (*ptr) == '\n')
                 ptr++;
         }
     }
@@ -301,10 +375,6 @@ int initXml(char* data, pXML xml) {
 }
 
 pXmlElement find(pXmlElement element, char* parentName) {
-
-#undef FUNC_CODE
-#define FUNC_CODE 0x09
-
     pXmlElement mE = NULL, fE = NULL;
 
     if (!strcmp(element->name, parentName)) {
@@ -336,10 +406,6 @@ pXmlElement find(pXmlElement element, char* parentName) {
 }
 
 int addElement(pXML xml, char* parentName, pXmlElement xmlElement) {
-
-#undef FUNC_CODE
-#define FUNC_CODE 0x0A
-
     pXmlElement pEle = NULL;
 
     if (NULL == parentName) {
@@ -357,7 +423,7 @@ int addElement(pXML xml, char* parentName, pXmlElement xmlElement) {
         if (NULL == pEle->content->pelement) {
             pEle->content->pelement = xmlElement;
         }
-        else{
+        else {
             pEle = pEle->content->pelement;
             while (pEle->next != NULL) {
                 pEle = pEle->next;
@@ -371,19 +437,16 @@ int addElement(pXML xml, char* parentName, pXmlElement xmlElement) {
 
 static int outElement(pXmlElement ele, FILE* data, int tabCount) {
 
-#undef FUNC_CODE
-#define FUNC_CODE 0x0B
-
     pXmlProperty pro;
     pXmlContent cont;
     pXmlElement next;
 
     int i = 0;
-    for (i = 0; i < tabCount; i++)
+    for (; i < tabCount; i++)
         fprintf(data, "\t");
 
     fprintf(data, "<%s", ele->name);
-    
+
     pro = ele->propertyList;
 
     while (pro) {
@@ -395,16 +458,23 @@ static int outElement(pXmlElement ele, FILE* data, int tabCount) {
 
     if (NULL == cont)
         fprintf(data, "/>\n");
-    else{
-        fprintf(data, ">\n");
+    //fprintf(data, "/>");
+    else {
 
+        if (cont->value)
+        {
+            fprintf(data, ">");
+            fprintf(data, "%s", cont->value);
+        }
+        else
+            fprintf(data, ">\n");
         next = cont->pelement;
-        while(next){
+        while (next) {
             outElement(next, data, tabCount + 1);
             next = next->next;
         }
 
-        for (i = 0; i < tabCount; i++)
+        for (; i < tabCount; i++)
             fprintf(data, "\t");
         fprintf(data, "</%s>\n", ele->name);
     }
@@ -414,9 +484,6 @@ static int outElement(pXmlElement ele, FILE* data, int tabCount) {
 
 int fileXml(pXML xml, FILE* data) {
 
-#undef FUNC_CODE
-#define FUNC_CODE 0x0C
-
     fprintf(data, "%s\n", xml->header);
 
     if (NULL != xml->body)
@@ -425,134 +492,6 @@ int fileXml(pXML xml, FILE* data) {
     return 0;
 }
 
-static int countElement(pXmlElement ele, int tabCount) {
-
-#undef FUNC_CODE
-#define FUNC_CODE 0x0D
-
-    pXmlProperty pro;
-    pXmlContent cont;
-    pXmlElement next;
-
-    int length = 0;
-
-    int i = 0;
-    for (i = 0; i < tabCount; i++)
-        length += (int)strlen("\t");
-
-    length += (int)strlen("<") + (int)strlen(ele->name);
-
-    pro = ele->propertyList;
-
-    while (pro) {
-        length += (int)strlen(" ") + (int)strlen(pro->name) + (int)strlen("=\"") + (int)strlen(pro->value) + (int)strlen("\"");
-        pro = pro->next;
-    }
-
-    cont = ele->content;
-
-    if (NULL == cont)
-        length += (int)strlen("></") + (int)strlen(ele->name) + (int)strlen(">\n");
-    else {
-        length += (int)strlen(">\n");
-
-        next = cont->pelement;
-        while (next) {
-            length += countElement(next, tabCount + 1);
-            next = next->next;
-        }
-
-        for (i = 0; i < tabCount; i++)
-            length += (int)strlen("\t");
-        length += (int)strlen("</") + (int)strlen(ele->name) + (int)strlen(">\n");
-    }
-    return length;
-}
-
-static int countXml(pXML xml, int tabCount) {
-
-#undef FUNC_CODE
-#define FUNC_CODE 0x0E
-
-    int length = 0, i = 0;
-    //package header
-    length += (int)strlen(xml->header) + (int)strlen("\n");
-
-    if(NULL != xml->body)
-        length += countElement(xml->body, 0);
-
-    return length;
-}
-
-static int packageElement(pXmlElement ele, char* ptr, int size, int tabCount) {
-
-#undef FUNC_CODE
-#define FUNC_CODE 0x0F
-
-    pXmlProperty pro;
-    pXmlContent cont;
-    pXmlElement next;
-
-    int length = 0, offset = 0, i = 0, tl = 0, eSize = 0;
-    
-    for (i = 0; i < tabCount; i++) {
-        sprintf_fl(ptr, size - offset, "\t");
-        tl = (int)strlen("\t");
-        ptr += tl;
-        offset += tl;
-    }
-
-    sprintf_fl(ptr, size - offset, "<%s", ele->name);
-    tl = (int)strlen("<") + (int)strlen(ele->name);
-    ptr += tl;
-    offset += tl;
-
-    pro = ele->propertyList;
-
-    while (pro) {
-        sprintf_fl(ptr, size - offset, " %s=\"%s\"", pro->name, pro->value);
-        tl = (int)strlen(" ") + (int)strlen(pro->name) + (int)strlen("=\"") + (int)strlen(pro->value) + (int)strlen("\"");
-        ptr += tl;
-        offset += tl;
-        pro = pro->next;
-    }
-
-    cont = ele->content;
-
-    if (NULL == cont) {
-        sprintf_fl(ptr, size - offset, "></%s>\n", ele->name);
-        tl = (int)strlen("></") + (int)strlen(ele->name) + (int)strlen(">\n");
-        ptr += tl;
-        offset += tl;
-    }
-    else {
-        sprintf_fl(ptr, size - offset, ">\n");
-        tl = (int)strlen(">\n");
-        ptr += tl;
-        offset += tl;
-
-        next = cont->pelement;
-        while (next) {
-            eSize = packageElement(next, ptr, size - offset, tabCount + 1);
-            offset += eSize;
-            ptr += eSize;
-            next = next->next;
-        }
-
-        for (i = 0; i < tabCount; i++) {
-            sprintf_fl(ptr, size - offset, "\t");
-            tl = (int)strlen("\t");
-            ptr += tl;
-            offset += tl;
-        }
-        sprintf_fl(ptr, size - offset, "</%s>\n", ele->name);
-        tl = (int)strlen("</") + (int)strlen(ele->name) + (int)strlen(">\n");
-        ptr += tl;
-        offset += tl;
-    }
-
-    return offset;
-}
 
 int packageXml(pXML xml, char** data, int* olength) {
 
@@ -581,16 +520,15 @@ int packageXml(pXML xml, char** data, int* olength) {
     return 0;
 }
 
-int freeElement(pXmlElement ele) {
 
-#undef FUNC_CODE
-#define FUNC_CODE 0x11
-
+static int freeElement(pXmlElement ele) {
     pXmlProperty ppro, ppronext;
     pXmlContent pcon;
     pXmlElement pE, pEnext;
 
     if (NULL != ele->name) {
+        if (NULL != ele->propertyList)
+            LOGE("%s %s\n", ele->name, ele->propertyList->value);
         free(ele->name);
     }
 
@@ -609,7 +547,13 @@ int freeElement(pXmlElement ele) {
 
     pcon = ele->content;
     if (NULL != pcon) {
+        if (pcon->value)
+        {
+            free(pcon->value);
+            pcon->value = NULL;
+        }
         pE = pcon->pelement;
+
         while (pE) {
             pEnext = pE->next;
             freeElement(pE);
@@ -625,9 +569,6 @@ int freeElement(pXmlElement ele) {
 
 int freeXml(pXML xml) {
 
-#undef FUNC_CODE
-#define FUNC_CODE 0x12
-
     pXmlElement pE, pEnext;
 
     if (NULL != xml->header) {
@@ -635,7 +576,7 @@ int freeXml(pXML xml) {
     }
 
     pE = xml->body;
-    while(pE){
+    while (pE) {
         pEnext = pE->next;
         freeElement(pE);
         pE = pEnext;
@@ -643,3 +584,4 @@ int freeXml(pXML xml) {
 
     return 0;
 }
+
